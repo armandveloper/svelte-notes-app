@@ -1,5 +1,6 @@
 <script>
   import { nanoid } from 'nanoid';
+  import NewNoteButton from './lib/components/NewNoteButton.svelte';
 
   let notes = [];
 
@@ -44,12 +45,7 @@
 <main
   class="grid gap-x-5 gap-y-8 max-w-screen-xl mx-auto px-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
-  <button
-    class="p-2 border-2 border-dashed border-neutral-500 rounded-md min-h-[15rem] transition-colors hover:bg-blue-300/60 hover:border-blue-500 md:min-h-[20rem] grid place-content-center"
-    on:click={handleAddNote}
-  >
-    <span class="text-lg uppercase">New note</span>
-  </button>
+  <NewNoteButton on:click={handleAddNote} />
   {#each filteredNotes as { title, body, id } (id)}
     <article
       class="bg-yellow-200 p-2 rounded-md h-[15rem] transition-colors md:h-[20rem] flex flex-col"
