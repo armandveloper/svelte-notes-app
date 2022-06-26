@@ -5,8 +5,6 @@
 
   let searchTerm = '';
 
-  $: console.log($notes);
-
   $: filteredNotes = searchTerm.trim()
     ? $notes.filter(note =>
         note.title.toUpperCase().includes(searchTerm.toUpperCase())

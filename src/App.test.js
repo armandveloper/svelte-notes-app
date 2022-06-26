@@ -14,14 +14,6 @@ describe('App.svelte', () => {
     expect($newNoteButton).toBeDefined();
   });
 
-  it('should be able to add an empty new note when click on the new note button', async () => {
-    const { getByRole } = render(App);
-    const $newNoteButton = getByRole('button');
-    await user.click($newNoteButton);
-    const $newNote = getByRole('article');
-    expect($newNote).toBeDefined();
-  });
-
   it('should be able to remove a note', async () => {
     const { getByRole, getByTestId, queryByRole } = render(App);
     const $newNoteButton = getByRole('button');
@@ -30,5 +22,13 @@ describe('App.svelte', () => {
     await user.click($removeNoteButton);
     const $newNote = queryByRole('article');
     expect($newNote).toBeNull();
+  });
+
+  it('should be able to add an empty new note when click on the new note button', async () => {
+    const { getByRole } = render(App);
+    const $newNoteButton = getByRole('button');
+    await user.click($newNoteButton);
+    const $newNote = getByRole('article');
+    expect($newNote).toBeDefined();
   });
 });
