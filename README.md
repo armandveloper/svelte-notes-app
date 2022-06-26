@@ -1,6 +1,10 @@
 # Svelte Notes App
 
-Notes application to practive Svelte
+Notes application to practice Svelte
+
+<h2>
+  <a href="https://armcruz.github.io/svelte-notes-app/">Live Demo</a>
+</h2>
 
 ![Project demo](./demo.png)
 
