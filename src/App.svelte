@@ -1,31 +1,17 @@
 <script>
-  import { nanoid } from 'nanoid';
   import NewNoteButton from './lib/components/NewNoteButton.svelte';
   import Note from './lib/components/Note.svelte';
-
-  let notes = [];
+  import { notes } from './lib/stores/notes';
 
   let searchTerm = '';
 
+  $: console.log($notes);
+
   $: filteredNotes = searchTerm.trim()
-    ? notes.filter(note =>
+    ? $notes.filter(note =>
         note.title.toUpperCase().includes(searchTerm.toUpperCase())
       )
-    : notes;
-
-  function handleRemoveNote(event) {
-    const newNotes = notes.filter(note => note.id !== event.detail.id);
-    notes = newNotes;
-  }
-
-  function handleAddNote() {
-    const newNote = {
-      id: nanoid(),
-      title: 'Untitled',
-      body: '',
-    };
-    notes = [newNote, ...notes];
-  }
+    : $notes;
 </script>
 
 <header
@@ -44,9 +30,14 @@
 <main
   class="grid gap-x-5 gap-y-8 max-w-screen-xl mx-auto px-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 >
-  <NewNoteButton on:click={handleAddNote} />
-  {#each filteredNotes as note (note.id)}
-    <Note {...note} on:remove={handleRemoveNote} />
+  <NewNoteButton on:click={() => notes.add({ title: 'Untitled', body: '' })} />
+  {#each filteredNotes as { id, title, body } (id)}
+    <Note
+      bind:id
+      bind:title
+      bind:body
+      on:remove={event => notes.remove(event.detail.id)}
+    />
   {/each}
 </main>
 
